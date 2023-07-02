@@ -1,5 +1,5 @@
 "use client";
-import { detailSurah } from "@/api/quran";
+import { detailSurah } from "@/src/api/quran";
 import Button from "@/components/Button";
 import CardDetail from "@/components/CardDetail";
 import Image from "next/image";
@@ -28,8 +28,9 @@ const Page = ({ params }) => {
     }
   };
 
-  const getDetailSurah = () => {
-    detailSurah(id).then((res) => setSurah(res.data));
+  const getDetailSurah = async () => {
+    const detail = await detailSurah(id);
+    setSurah(detail.data);
     setIsLoading(false);
   };
 
@@ -54,7 +55,7 @@ const Page = ({ params }) => {
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="container min-h-screen mx-auto lg:max-w-7xl">
       {surah.length !== 0 && (
         <div className="text-center p-4 text-[24px] font-bold">
           {surah.namaLatin} - {surah.nama}
@@ -66,8 +67,8 @@ const Page = ({ params }) => {
       />
       <audio ref={audioRef} />
       <div>
-        {surah.ayat && !isLoading ? (
-          surah.ayat.map((item) => (
+        {!isLoading ? (
+          surah?.ayat?.map((item) => (
             <CardDetail
               key={item.nomorAyat}
               {...item}

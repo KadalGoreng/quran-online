@@ -1,16 +1,13 @@
 "use client";
+import { nav } from "@/src/utils/constant";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
 const Navbar = () => {
-  const [active, setActive] = useState("");
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-
-  const nav = [
-    { name: "Quran", link: "" },
-    { name: "Jadwal Shalat", link: "shalat" },
-  ];
 
   return (
     <nav className="bg-[#c0e0b1] z-10 top-0 sticky w-full mb-5">
@@ -53,9 +50,8 @@ const Navbar = () => {
               key={index}
               href={`/${item.link}`}
               className={`${
-                item.link === active ? "text-[#988a51]" : "text-black"
+                `/${item.link}` === pathname ? "text-[#988a51]" : "text-black"
               } font-semibold`}
-              onClick={() => setActive(item.link)}
             >
               {item.name}
             </Link>

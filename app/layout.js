@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import "./globals.css";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Quran App",
@@ -12,6 +13,7 @@ export default function RootLayout({ children }) {
       <body className="bg-[#c0e0b1]">
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );

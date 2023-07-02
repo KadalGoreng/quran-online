@@ -1,5 +1,5 @@
 "use client";
-import { getAllSurah } from "@/api/quran";
+import { getAllSurah } from "@/src/api/quran";
 import Card from "@/components/Card";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,10 +8,12 @@ import { useEffect, useState } from "react";
 const Home = () => {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const getSurah = () => {
-    getAllSurah().then((res) => setData(res.data));
+  const getSurah = async () => {
+    setIsLoading(true);
+    const surah = await getAllSurah();
+    setData(surah.data);
     setIsLoading(false);
   };
 
@@ -28,7 +30,7 @@ const Home = () => {
     .filter(Boolean);
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto min-h-screen lg:max-w-7xl">
       <div className="mb-4">
         <input
           type="text"
@@ -49,9 +51,8 @@ const Home = () => {
         </div>
       )}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-        {data &&
-          !isLoading &&
-          surahFilter.map((item) => (
+        {!isLoading &&
+          surahFilter?.map((item) => (
             <Link href={`quran/surah/${item.nomor}`} key={item.nomor}>
               <Card {...item} />
             </Link>
