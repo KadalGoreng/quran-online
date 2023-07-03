@@ -26,8 +26,9 @@ const CardDetail = (props) => {
             <Image src="/play.svg" width={15} height={10} alt="playIcon" />
           </button>
         )}
-
-        <span className="text-right my-3">{teksArab}</span>
+        <span className="text-right my-5 font-bold text-[20px] basis-11/12">
+          {teksArab}
+        </span>
       </div>
       <div className="flex flex-col gap-2">
         <span className="text-amber-600 font-medium">{teksLatin}</span>
